@@ -44,6 +44,13 @@ hs_err_pid*
 # Gradle
 .idea/**/gradle.xml
 .idea/**/libraries
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
 
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,
@@ -57,3 +64,8 @@ hs_err_pid*
 .idea/modules
 *.iml
 *.ipr
+.idea
+*.iws
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
