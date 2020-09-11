@@ -1,4 +1,4 @@
-package dev.mazurkiewicz.m2flashcards.entity;
+package dev.mazurkiewicz.m2flashcards.flashcard.entity;
 
 import lombok.Data;
 
@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Data
-@Entity
+@Entity(name="flashcards")
 public class Flashcard {
 
     @Id
@@ -16,6 +16,8 @@ public class Flashcard {
     private String question;
     private String answer;
     private boolean twoSided;
+    private Long authorId;
+    private boolean isPublic;
 
 
 }

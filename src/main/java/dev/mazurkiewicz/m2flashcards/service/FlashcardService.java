@@ -1,6 +1,6 @@
 package dev.mazurkiewicz.m2flashcards.service;
 
-import dev.mazurkiewicz.m2flashcards.entity.Flashcard;
+import dev.mazurkiewicz.m2flashcards.flashcard.entity.Flashcard;
 import dev.mazurkiewicz.m2flashcards.repository.IFlashcardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

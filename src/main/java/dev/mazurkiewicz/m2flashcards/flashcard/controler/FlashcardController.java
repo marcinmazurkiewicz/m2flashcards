@@ -1,18 +1,17 @@
-package dev.mazurkiewicz.m2flashcards.controler;
+package dev.mazurkiewicz.m2flashcards.flashcard.controler;
 
-import dev.mazurkiewicz.m2flashcards.entity.Flashcard;
+import dev.mazurkiewicz.m2flashcards.flashcard.entity.Flashcard;
 import dev.mazurkiewicz.m2flashcards.service.FlashcardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URISyntaxException;
+import java.security.Principal;
 
 @RestController
-@RequestMapping("/flashcards")
+@RequestMapping("/api/v1/flashcards")
 public class FlashcardController {
 
     private final FlashcardService service;
@@ -31,7 +30,7 @@ public class FlashcardController {
     }
 
     @GetMapping("/{id}")
-    public Flashcard getFlashcardById(@PathVariable Long id) {
+    public Flashcard getFlashcardById(@PathVariable Long id, Principal principal) {
         return service.findFlashcard(id);
     }
 }
