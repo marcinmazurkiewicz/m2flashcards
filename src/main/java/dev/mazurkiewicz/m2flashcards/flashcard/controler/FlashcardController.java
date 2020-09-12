@@ -1,7 +1,7 @@
 package dev.mazurkiewicz.m2flashcards.flashcard.controler;
 
 import dev.mazurkiewicz.m2flashcards.flashcard.entity.Flashcard;
-import dev.mazurkiewicz.m2flashcards.service.FlashcardService;
+import dev.mazurkiewicz.m2flashcards.flashcard.service.FlashcardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

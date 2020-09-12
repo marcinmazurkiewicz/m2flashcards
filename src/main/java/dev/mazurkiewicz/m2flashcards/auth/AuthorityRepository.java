@@ -3,6 +3,11 @@ package dev.mazurkiewicz.m2flashcards.auth;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer>, UserDao {
+public interface AuthorityRepository extends JpaRepository<Authority, Long> {
+
+    Optional<Authority> findByAuthority(String authority);
+
 }

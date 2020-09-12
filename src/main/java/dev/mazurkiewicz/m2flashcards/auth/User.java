@@ -1,42 +1,40 @@
 package dev.mazurkiewicz.m2flashcards.auth;
 
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Set;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "users")
-public class User implements UserDetails {
+public class User {
 
-    private int id;
-    private Set<? extends GrantedAuthority> grantedAuthorities;
+    @Id
+    @GeneratedValue
+    private Long id;
+    @NotEmpty
+    @Column(nullable=false, unique=true)
+    private String email;
+    @NotEmpty
+    @Column(nullable=false)
     private String password;
-    private String username;
-    private boolean isAccountNonExpired;
-    private boolean isAccountNonLocked;
-    private boolean isCredentialsNonExpired;
+    private boolean isAccountExpired;
+    private boolean isAccountLocked;
+    private boolean isCredentialsExpired;
     private boolean isEnabled;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="user_authority",
+            joinColumns = {@JoinColumn(name="user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "auth_id", referencedColumnName = "id")})
+    private Set<Authority> authorities;
 
-    public User() {}
-
-    public User(String username, String password, Set<? extends GrantedAuthority> grantedAuthorities,
-                boolean isAccountNonExpired, boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled) {
-        this.grantedAuthorities = grantedAuthorities;
-        this.password = password;
-        this.username = username;
-        this.isAccountNonExpired = isAccountNonExpired;
-        this.isAccountNonLocked = isAccountNonLocked;
-        this.isCredentialsNonExpired = isCredentialsNonExpired;
-        this.isEnabled = isEnabled;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return grantedAuthorities;
-    }
 }

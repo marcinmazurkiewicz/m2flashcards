@@ -1,6 +1,7 @@
 package dev.mazurkiewicz.m2flashcards.security.user;
 
 import com.google.common.collect.Sets;
+import dev.mazurkiewicz.m2flashcards.auth.Authority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Set;
@@ -25,11 +26,11 @@ public enum UserRole {
         return permissions;
     }
 
-    public Set<SimpleGrantedAuthority> getGrantedAuthorities() {
-        Set<SimpleGrantedAuthority> permissions = getPermissions().stream()
-                .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
+    public Set<Authority> getGrantedAuthorities() {
+        Set<Authority> permissions = getPermissions().stream()
+                .map(permission -> new Authority(permission.getPermission()))
                 .collect(Collectors.toSet());
-        permissions.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
+        permissions.add(new Authority("ROLE_" + this.name()));
         return permissions;
     }
 }
