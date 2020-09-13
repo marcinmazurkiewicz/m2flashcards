@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -54,11 +55,15 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
             Claims body = claimsJws.getBody();
             String username = body.getSubject();
             List<Map<String, String>> authList = (List<Map<String, String>>) body.get("authorities");
+            Map<String, Object> details = new HashMap<>();
+            details.put("userId", body.get("userId"));
             Set<SimpleGrantedAuthority> authorities = authList.stream()
                     .map(m -> new SimpleGrantedAuthority(m.get("authority")))
                     .collect(Collectors.toSet());
 
-            Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, authorities);
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken
+                    (username, null, authorities);
+            authentication.setDetails(details);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (JwtException e) {
             throw new IllegalStateException(String.format("Token %s cannot be trusted", token));
