@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.security.Principal;
 
 @RestController
 @RequestMapping("/api/v1/flashcards")
@@ -23,7 +22,7 @@ public class FlashcardController {
     @PostMapping
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<?> addFlashcard(@RequestBody FlashcardRequest flashcard) {
-        Flashcard savedFlashcard = service.addFlashcard(flashcard);
+        Flashcard savedFlashcard = service.saveFlashcard(flashcard);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(savedFlashcard.getId()).toUri();
         return ResponseEntity.created(location).build();

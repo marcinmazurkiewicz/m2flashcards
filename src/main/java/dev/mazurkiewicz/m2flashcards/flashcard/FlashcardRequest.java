@@ -10,7 +10,5 @@ public class FlashcardRequest {
     private String question;
     private String answer;
     private boolean twoSided;
-    private boolean isPublic;
-    private Long authorId;
-
+    private boolean privy;
 }
