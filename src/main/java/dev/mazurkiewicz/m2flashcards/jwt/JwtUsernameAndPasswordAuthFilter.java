@@ -1,6 +1,7 @@
 package dev.mazurkiewicz.m2flashcards.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.mazurkiewicz.m2flashcards.user.M2UserDetails;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -52,9 +53,11 @@ public class JwtUsernameAndPasswordAuthFilter extends UsernamePasswordAuthentica
                                             HttpServletResponse response,
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
+        M2UserDetails userDetails = (M2UserDetails) authResult.getPrincipal();
         String token = Jwts.builder()
                 .setSubject(authResult.getName())
                 .claim("authorities", authResult.getAuthorities())
+                .claim("userId",userDetails.getId())
                 .setIssuedAt(new Date())
                 .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(jwtConfig.getTokenExpirationAfterDays())))
                 .signWith(secretKey) //klucz powinien być długi i skomplikowany!
