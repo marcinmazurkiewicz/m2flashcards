@@ -1,14 +1,12 @@
-package dev.mazurkiewicz.m2flashcards.security.user;
+package dev.mazurkiewicz.m2flashcards.auth;
 
 import com.google.common.collect.Sets;
-import dev.mazurkiewicz.m2flashcards.auth.Authority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
 
-import static dev.mazurkiewicz.m2flashcards.security.user.UserPermission.*;
+import static dev.mazurkiewicz.m2flashcards.auth.UserPermission.*;
 
 public enum UserRole {
     ADMIN(Sets.newHashSet(FLASHCARD_READ, FLASHCARD_WRITE)),

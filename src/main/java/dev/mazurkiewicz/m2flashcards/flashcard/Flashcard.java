@@ -1,4 +1,4 @@
-package dev.mazurkiewicz.m2flashcards.flashcard.entity;
+package dev.mazurkiewicz.m2flashcards.flashcard;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
-package dev.mazurkiewicz.m2flashcards.flashcard.repository;
+package dev.mazurkiewicz.m2flashcards.flashcard;
 
-import dev.mazurkiewicz.m2flashcards.flashcard.entity.Flashcard;
+import dev.mazurkiewicz.m2flashcards.flashcard.Flashcard;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

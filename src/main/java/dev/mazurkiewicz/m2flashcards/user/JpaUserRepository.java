@@ -1,5 +1,6 @@
-package dev.mazurkiewicz.m2flashcards.auth;
+package dev.mazurkiewicz.m2flashcards.user;
 
+import dev.mazurkiewicz.m2flashcards.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

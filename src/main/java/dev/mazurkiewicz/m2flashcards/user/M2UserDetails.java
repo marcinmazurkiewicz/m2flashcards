@@ -1,15 +1,10 @@
-package dev.mazurkiewicz.m2flashcards.auth;
+package dev.mazurkiewicz.m2flashcards.user;
 
+import dev.mazurkiewicz.m2flashcards.user.User;
 import lombok.Data;
-import lombok.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
-import java.util.Collection;
 import java.util.Set;
 
 @Data

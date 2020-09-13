@@ -1,5 +1,6 @@
-package dev.mazurkiewicz.m2flashcards.auth;
+package dev.mazurkiewicz.m2flashcards.user;
 
+import dev.mazurkiewicz.m2flashcards.auth.Authority;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

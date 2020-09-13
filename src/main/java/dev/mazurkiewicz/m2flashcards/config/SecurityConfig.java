@@ -1,6 +1,6 @@
-package dev.mazurkiewicz.m2flashcards.security;
+package dev.mazurkiewicz.m2flashcards.config;
 
-import dev.mazurkiewicz.m2flashcards.auth.UserService;
+import dev.mazurkiewicz.m2flashcards.user.UserService;
 import dev.mazurkiewicz.m2flashcards.jwt.JwtConfig;
 import dev.mazurkiewicz.m2flashcards.jwt.JwtTokenVerifier;
 import dev.mazurkiewicz.m2flashcards.jwt.JwtUsernameAndPasswordAuthFilter;
@@ -18,8 +18,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.crypto.SecretKey;
-
-import static dev.mazurkiewicz.m2flashcards.security.user.UserRole.ADMIN;
 
 @Configuration
 @EnableWebSecurity

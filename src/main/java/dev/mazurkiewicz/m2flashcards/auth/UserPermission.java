@@ -1,4 +1,4 @@
-package dev.mazurkiewicz.m2flashcards.security.user;
+package dev.mazurkiewicz.m2flashcards.auth;
 
 public enum UserPermission {
     FLASHCARD_READ("flashcard:read"),

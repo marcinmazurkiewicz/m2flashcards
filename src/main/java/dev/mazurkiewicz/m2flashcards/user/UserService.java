@@ -1,6 +1,7 @@
-package dev.mazurkiewicz.m2flashcards.auth;
+package dev.mazurkiewicz.m2flashcards.user;
 
-import dev.mazurkiewicz.m2flashcards.mapper.UserMapper;
+import dev.mazurkiewicz.m2flashcards.auth.Authority;
+import dev.mazurkiewicz.m2flashcards.auth.AuthorityService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

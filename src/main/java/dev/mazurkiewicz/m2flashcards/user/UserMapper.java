@@ -1,9 +1,6 @@
-package dev.mazurkiewicz.m2flashcards.mapper;
+package dev.mazurkiewicz.m2flashcards.user;
 
-import dev.mazurkiewicz.m2flashcards.auth.NewUserRequest;
-import dev.mazurkiewicz.m2flashcards.auth.User;
-import dev.mazurkiewicz.m2flashcards.auth.UserResponse;
-import dev.mazurkiewicz.m2flashcards.security.user.UserRole;
+import dev.mazurkiewicz.m2flashcards.auth.UserRole;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package dev.mazurkiewicz.m2flashcards.security.user;
+package dev.mazurkiewicz.m2flashcards.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
