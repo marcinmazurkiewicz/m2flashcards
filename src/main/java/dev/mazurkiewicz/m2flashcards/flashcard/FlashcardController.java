@@ -2,6 +2,7 @@ package dev.mazurkiewicz.m2flashcards.flashcard;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -20,15 +21,16 @@ public class FlashcardController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addFlashcard(@RequestBody Flashcard flashcard) {
-        Flashcard result = service.addFlashcard(flashcard);
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<?> addFlashcard(@RequestBody FlashcardRequest flashcard) {
+        Flashcard savedFlashcard = service.addFlashcard(flashcard);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(result.getId()).toUri();
+                .buildAndExpand(savedFlashcard.getId()).toUri();
         return ResponseEntity.created(location).build();
     }
 
     @GetMapping("/{id}")
-    public Flashcard getFlashcardById(@PathVariable Long id, Principal principal) {
+    public Flashcard getFlashcardById(@PathVariable Long id) {
         return service.findFlashcard(id);
     }
 }

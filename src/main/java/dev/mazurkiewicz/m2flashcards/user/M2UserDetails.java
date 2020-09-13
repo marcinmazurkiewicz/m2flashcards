@@ -10,6 +10,7 @@ import java.util.Set;
 @Data
 public class M2UserDetails  implements UserDetails {
 
+    private Long id;
     private String username;
     private String password;
     private boolean isAccountNonExpired;
@@ -19,6 +20,7 @@ public class M2UserDetails  implements UserDetails {
     private Set<? extends GrantedAuthority> authorities;
 
     public M2UserDetails(User user) {
+        this.id = user.getId();
         this.username = user.getEmail();
         this.password = user.getPassword();
         this.isAccountNonExpired = !user.isAccountExpired();
