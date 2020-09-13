@@ -23,19 +23,19 @@ public class FlashcardController {
     @PostMapping
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<?> addFlashcard(@RequestBody FlashcardRequest flashcard) {
-        Flashcard savedFlashcard = service.saveFlashcard(flashcard);
+        FlashcardResponse savedFlashcard = service.saveFlashcard(flashcard);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(savedFlashcard.getId()).toUri();
         return ResponseEntity.created(location).build();
     }
 
     @GetMapping("/{id}")
-    public Flashcard getFlashcardById(@PathVariable Long id) {
+    public FlashcardResponse getFlashcardById(@PathVariable Long id) {
         return service.findFlashcard(id);
     }
 
     @GetMapping("/author/{authorId}")
-    public List<Flashcard> getFlashcardByAuthorId(@PathVariable Long authorId) {
+    public List<FlashcardResponse> getFlashcardByAuthorId(@PathVariable Long authorId) {
         return service.findFlashcardByAuthor(authorId);
     }
 

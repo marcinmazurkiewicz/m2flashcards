@@ -9,8 +9,18 @@ public class FlashcardMapper {
         Flashcard result = new Flashcard();
         result.setQuestion(request.getQuestion());
         result.setAnswer(request.getAnswer());
-        result.setPublic(!request.isPrivy());
+        result.setPrivate(request.isPrivy());
         result.setTwoSided(request.isTwoSided());
+        return result;
+    }
+
+    public FlashcardResponse mapEntityToResponse(Flashcard entity) {
+        FlashcardResponse result = new FlashcardResponse();
+        result.setId(entity.getId());
+        result.setQuestion(entity.getQuestion());
+        result.setAnswer(entity.getAnswer());
+        result.setPrivy(entity.isPrivate());
+        result.setTwoSided(entity.isTwoSided());
         return result;
     }
 

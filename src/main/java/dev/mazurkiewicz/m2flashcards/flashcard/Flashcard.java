@@ -17,7 +17,7 @@ public class Flashcard {
     private String answer;
     private boolean twoSided;
     private Long authorId;
-    private boolean isPublic;
+    private boolean isPrivate;
 
 
 }

@@ -24,28 +24,34 @@ public class FlashcardService {
         this.userAuthHelper = userAuthHelper;
     }
 
-    public Flashcard saveFlashcard(FlashcardRequest flashcard) {
+    public FlashcardResponse saveFlashcard(FlashcardRequest flashcard) {
         Flashcard flashcardToSave = flashcardMapper.mapRequestToEntity(flashcard);
         flashcardToSave.setAuthorId(userAuthHelper.geLoggedUserId());
-        return repository.save(flashcardToSave);
+        Flashcard savedFlashcard = repository.save(flashcardToSave);
+        return flashcardMapper.mapEntityToResponse(savedFlashcard);
     }
 
-    public Flashcard findFlashcard(Long id) throws HttpClientErrorException {
+    public FlashcardResponse findFlashcard(Long id) throws HttpClientErrorException {
         Flashcard flashcard = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Flashcard with id %d is not found", id)));
-        boolean visible = flashcard.isPublic() || flashcard.getAuthorId().equals(userAuthHelper.geLoggedUserId());
-        if (!visible)
+        boolean privy = flashcard.isPrivate() && !flashcard.getAuthorId().equals(userAuthHelper.geLoggedUserId());
+        if (privy)
             throw new UnauthorizedAccessException(String.format("Flashcard %d is private", id));
 
-        return flashcard;
+        return flashcardMapper.mapEntityToResponse(flashcard);
     }
 
-    public List<Flashcard> findFlashcardByAuthor(Long authorId) {
+    public List<FlashcardResponse> findFlashcardByAuthor(Long authorId) {
         List<Flashcard> foundFlashcards = repository.findFlashcardByAuthorId(authorId);
         boolean isAuthorLogged = authorId.equals(userAuthHelper.geLoggedUserId());
-        return isAuthorLogged ? foundFlashcards :
-                foundFlashcards.stream()
-                        .filter(Flashcard::isPublic)
-                        .collect(Collectors.toList());
+        List<FlashcardResponse> response = isAuthorLogged
+                ? foundFlashcards.stream()
+                    .map(flashcardMapper::mapEntityToResponse)
+                    .collect(Collectors.toList())
+                : foundFlashcards.stream()
+                    .filter(Flashcard::isPrivate)
+                    .map(flashcardMapper::mapEntityToResponse)
+                    .collect(Collectors.toList());
+        return response;
     }
 }
