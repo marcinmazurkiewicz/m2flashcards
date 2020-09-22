@@ -20,6 +20,18 @@ public class FlashcardController {
         this.service = service;
     }
 
+    @GetMapping("/{id}")
+    public FlashcardResponse getFlashcardById(@PathVariable Long id) {
+        return service.findFlashcard(id);
+    }
+
+    @PatchMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<?> editFlashcard(@PathVariable Long id, @RequestBody FlashcardRequest flashcard) {
+        service.editFlashcard(id, flashcard);
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<?> addFlashcard(@RequestBody FlashcardRequest flashcard) {
@@ -27,11 +39,6 @@ public class FlashcardController {
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(savedFlashcard.getId()).toUri();
         return ResponseEntity.created(location).build();
-    }
-
-    @GetMapping("/{id}")
-    public FlashcardResponse getFlashcardById(@PathVariable Long id) {
-        return service.findFlashcard(id);
     }
 
     @GetMapping("/author/{authorId}")
