@@ -21,6 +21,7 @@ public class FlashcardMapper {
         result.setAnswer(entity.getAnswer());
         result.setPrivy(entity.isPrivate());
         result.setTwoSided(entity.isTwoSided());
+        result.setAuthorId(entity.getAuthorId());
         return result;
     }
 
