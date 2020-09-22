@@ -19,5 +19,4 @@ public class Flashcard {
     private Long authorId;
     private boolean isPrivate;
 
-
 }

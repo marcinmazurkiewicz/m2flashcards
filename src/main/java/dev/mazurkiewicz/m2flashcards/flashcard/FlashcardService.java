@@ -65,7 +65,7 @@ public class FlashcardService {
                 .map(flashcardMapper::mapEntityToResponse)
                 .collect(Collectors.toList())
                 : foundFlashcards.stream()
-                .filter(Flashcard::isPrivate)
+                .filter(flashcard -> !flashcard.isPrivate())
                 .map(flashcardMapper::mapEntityToResponse)
                 .collect(Collectors.toList());
     }
