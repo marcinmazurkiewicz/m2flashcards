@@ -25,6 +25,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.hibernate:hibernate-validator:6.0.13.Final'
+	implementation 'junit:junit:4.12'
 	compile group: 'com.google.guava', name: 'guava', version: '29.0-jre'
 	compile 'io.jsonwebtoken:jjwt-api:0.11.2'
 	runtime 'io.jsonwebtoken:jjwt-impl:0.11.2',
@@ -36,8 +37,10 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'com.h2database:h2'
 }
 
 test {
 	useJUnitPlatform()
 }
+
