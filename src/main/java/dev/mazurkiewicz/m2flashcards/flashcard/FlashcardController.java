@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -27,14 +28,14 @@ public class FlashcardController {
 
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public ResponseEntity<?> editFlashcard(@PathVariable Long id, @RequestBody FlashcardRequest flashcard) {
+    public ResponseEntity<?> editFlashcard(@PathVariable Long id, @RequestBody @Valid FlashcardRequest flashcard) {
         service.editFlashcard(id, flashcard);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_USER')")
-    public ResponseEntity<?> addFlashcard(@RequestBody FlashcardRequest flashcard) {
+    public ResponseEntity<?> addFlashcard(@RequestBody @Valid FlashcardRequest flashcard) {
         FlashcardResponse savedFlashcard = service.saveFlashcard(flashcard);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(savedFlashcard.getId()).toUri();
