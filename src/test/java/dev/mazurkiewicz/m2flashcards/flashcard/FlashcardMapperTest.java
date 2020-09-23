@@ -3,6 +3,7 @@ package dev.mazurkiewicz.m2flashcards.flashcard;
 
 import org.junit.jupiter.api.Test;
 
+import static dev.mazurkiewicz.m2flashcards.flashcard.FlashcardCreator.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FlashcardMapperTest {
@@ -10,9 +11,12 @@ public class FlashcardMapperTest {
     @Test
     public void whenFlashcardRequest_thenReturnFlashcard() {
         //given
+        long flashcardId = 1L;
+        long authorId = 100L;
+        boolean privy = true;
         FlashcardMapper mapper = new FlashcardMapper();
-        FlashcardRequest request = prepareRequest();
-        Flashcard expected = prepareEntity();
+        FlashcardRequest request = prepareRequest(privy);
+        Flashcard expected = prepareEntity(flashcardId, authorId, privy);
         //when
         Flashcard result = mapper.mapRequestToEntity(request);
 
@@ -26,9 +30,13 @@ public class FlashcardMapperTest {
     @Test
     public void whenFlashcardEntity_thenReturnFlashcardResponse() {
         //given
+        long flashcardId = 1L;
+        long authorId = 100L;
+        boolean privy = true;
+
         FlashcardMapper mapper = new FlashcardMapper();
-        Flashcard entity = prepareEntity();
-        FlashcardResponse expected = prepareResponse();
+        Flashcard entity = prepareEntity(flashcardId, authorId, privy);
+        FlashcardResponse expected = prepareResponse(flashcardId, authorId, privy);
         //when
         FlashcardResponse result = mapper.mapEntityToResponse(entity);
 
@@ -41,34 +49,4 @@ public class FlashcardMapperTest {
         assertThat(result.getId()).isEqualTo(expected.getId());
     }
 
-    private FlashcardRequest prepareRequest() {
-        FlashcardRequest request = new FlashcardRequest();
-        request.setQuestion("question1");
-        request.setAnswer("answer1");
-        request.setTwoSided(true);
-        request.setPrivy(true);
-        return request;
-    }
-
-    private Flashcard prepareEntity() {
-        Flashcard entity = new Flashcard();
-        entity.setId(1L);
-        entity.setAuthorId(100L);
-        entity.setQuestion("question1");
-        entity.setAnswer("answer1");
-        entity.setTwoSided(true);
-        entity.setPrivate(true);
-        return entity;
-    }
-
-    private FlashcardResponse prepareResponse() {
-        FlashcardResponse response = new FlashcardResponse();
-        response.setId(1L);
-        response.setAuthorId(100L);
-        response.setQuestion("question1");
-        response.setAnswer("answer1");
-        response.setTwoSided(true);
-        response.setPrivy(true);
-        return response;
-    }
 }
