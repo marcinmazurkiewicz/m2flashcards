@@ -3,6 +3,7 @@ package dev.mazurkiewicz.m2flashcards.user;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 @Getter
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotEmpty;
 public class NewUserRequest {
 
     @NotEmpty
+    @Email
     private final String email;
     @NotEmpty
     private final String password;

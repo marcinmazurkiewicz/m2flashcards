@@ -5,7 +5,9 @@ spring:
   jackson:
     serialization:
       INDENT_OUTPUT: true
-
+server:
+  error:
+    include-stacktrace: never
 application:
   jwt:
     secretKey: LXJeSj35XNQbds8e4ziZZfiFvl59AzSPddshLMM1WOFvS0H1bl2XySglkB5U
