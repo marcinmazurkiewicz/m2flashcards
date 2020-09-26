@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
@@ -23,27 +24,39 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
             HttpHeaders headers,
             HttpStatus status,
             WebRequest request) {
-        Map<String, String> errors = new HashMap<>();
+        Map<String, ErrorInfo> errors = new HashMap<>();
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-            errors.put(error.getField(), error.getDefaultMessage());
+            errors.put(
+                    error.getField(),
+                    new ErrorInfo(ErrorType.valueOfCode(error.getCode()), error.getDefaultMessage())
+            );
         }
         for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {
-            errors.put(error.getObjectName(), error.getDefaultMessage());
+            errors.put(
+                    error.getObjectName(),
+                    new ErrorInfo(ErrorType.valueOfCode(error.getCode()), error.getDefaultMessage())
+            );
         }
 
-        M2FieldError fieldError =
-                new M2FieldError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
-        return handleExceptionInternal(
-                ex, fieldError, headers, fieldError.getStatus(), request);
+        CustomFieldError fieldError =
+                new CustomFieldError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
+        return handleExceptionInternal(ex, fieldError, headers, fieldError.getStatus(), request);
     }
 
-    @ExceptionHandler({ UniqueValueViolationException.class })
+    @ExceptionHandler({UniqueValueViolationException.class})
     public ResponseEntity<Object> handleUserEmailInUse(UniqueValueViolationException ex) {
+        Map<String, ErrorInfo> errors = ex.getErrors()
+                .entrySet()
+                .stream()
+                .collect(Collectors.toMap(
+                        entry -> entry.getKey(),
+                        entry -> new ErrorInfo(ex.getErrorType(), entry.getValue())
+                ));
 
-        M2FieldError apiError =
-                new M2FieldError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), ex.getErrors());
+        CustomFieldError fieldError =
+                new CustomFieldError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
         return new ResponseEntity<>(
-                apiError, new HttpHeaders(), apiError.getStatus());
+                fieldError, new HttpHeaders(), fieldError.getStatus());
     }
 
 }

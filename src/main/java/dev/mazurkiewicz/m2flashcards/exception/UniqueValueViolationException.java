@@ -1,11 +1,15 @@
 package dev.mazurkiewicz.m2flashcards.exception;
 
+import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
 public class UniqueValueViolationException extends RuntimeException {
 
     private Map<String, String> errors;
+    private final ErrorType errorType = ErrorType.UNIQUE;
 
     public UniqueValueViolationException(String msg, Map<String, String> errors) {
         super(msg);
@@ -18,7 +22,4 @@ public class UniqueValueViolationException extends RuntimeException {
         errors.put(field, error);
     }
 
-    public Map<String, String> getErrors() {
-        return errors;
-    }
 }
