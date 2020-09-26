@@ -3,6 +3,8 @@ package dev.mazurkiewicz.m2flashcards.exception;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNullApi;
+import org.springframework.lang.Nullable;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -39,7 +41,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         }
 
         CustomFieldError fieldError =
-                new CustomFieldError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
+                new CustomFieldError(HttpStatus.BAD_REQUEST, ex.getMessage(), errors);
         return handleExceptionInternal(ex, fieldError, headers, fieldError.getStatus(), request);
     }
 
@@ -49,14 +51,15 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
                 .entrySet()
                 .stream()
                 .collect(Collectors.toMap(
-                        entry -> entry.getKey(),
+                        Map.Entry::getKey,
                         entry -> new ErrorInfo(ex.getErrorType(), entry.getValue())
                 ));
 
         CustomFieldError fieldError =
-                new CustomFieldError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
+                new CustomFieldError(HttpStatus.BAD_REQUEST, ex.getMessage(), errors);
         return new ResponseEntity<>(
-                fieldError, new HttpHeaders(), fieldError.getStatus());
+                fieldError, new HttpHeaders(), fieldError.getStatus()
+        );
     }
 
 }
