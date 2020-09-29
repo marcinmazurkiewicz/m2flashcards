@@ -13,8 +13,6 @@ import javax.validation.constraints.NotEmpty;
 @FieldMatch(first = "password", second = "confirmPassword")
 public class NewUserRequest {
 
-    @NotEmpty
-    @Email
     @UniqueMail
     private final String email;
     @NotEmpty

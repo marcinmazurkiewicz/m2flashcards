@@ -20,6 +20,6 @@ public class UniqueMailValidator implements ConstraintValidator<UniqueMail, Stri
 
     @Override
     public boolean isValid(String mail, ConstraintValidatorContext context) {
-        return userRepository.selectUserByUsername(mail).isPresent();
+        return userRepository.selectUserByUsername(mail).isEmpty();
     }
 }
