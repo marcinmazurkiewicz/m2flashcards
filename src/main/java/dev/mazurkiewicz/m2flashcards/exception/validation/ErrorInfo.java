@@ -1,7 +1,7 @@
-package dev.mazurkiewicz.m2flashcards.exception;
+package dev.mazurkiewicz.m2flashcards.exception.validation;
 
+import dev.mazurkiewicz.m2flashcards.exception.validation.ErrorType;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 
 @Getter

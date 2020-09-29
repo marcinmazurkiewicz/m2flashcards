@@ -1,21 +1,20 @@
 package dev.mazurkiewicz.m2flashcards.exception;
 
+import dev.mazurkiewicz.m2flashcards.exception.validation.CustomFieldError;
+import dev.mazurkiewicz.m2flashcards.exception.validation.ErrorInfo;
+import dev.mazurkiewicz.m2flashcards.exception.validation.ErrorType;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.NonNullApi;
-import org.springframework.lang.Nullable;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
@@ -44,22 +43,4 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
                 new CustomFieldError(HttpStatus.BAD_REQUEST, ex.getMessage(), errors);
         return handleExceptionInternal(ex, fieldError, headers, fieldError.getStatus(), request);
     }
-
-    @ExceptionHandler({UniqueValueViolationException.class})
-    public ResponseEntity<Object> handleUserEmailInUse(UniqueValueViolationException ex) {
-        Map<String, ErrorInfo> errors = ex.getErrors()
-                .entrySet()
-                .stream()
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        entry -> new ErrorInfo(ex.getErrorType(), entry.getValue())
-                ));
-
-        CustomFieldError fieldError =
-                new CustomFieldError(HttpStatus.BAD_REQUEST, ex.getMessage(), errors);
-        return new ResponseEntity<>(
-                fieldError, new HttpHeaders(), fieldError.getStatus()
-        );
-    }
-
 }

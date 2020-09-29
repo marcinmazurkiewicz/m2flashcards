@@ -1,11 +1,12 @@
-package dev.mazurkiewicz.m2flashcards.exception;
+package dev.mazurkiewicz.m2flashcards.exception.validation;
 
 import java.util.Arrays;
 
 public enum ErrorType {
-    NOT_EMPTY("NotEmpty"),
-    NOT_NULL("NotNull"),
-    UNIQUE("Unique"),
+    EMPTY("NotEmpty"),
+    NULL("NotNull"),
+    NOT_UNIQUE_MAIL("UniqueMail"),
+    NOT_MATCH("FieldMatch"),
     UNKNOWN("");
 
     private final String codeName;
