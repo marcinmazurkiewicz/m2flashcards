@@ -1,23 +1,25 @@
 package dev.mazurkiewicz.m2flashcards.exception.validation;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
 
 public enum ErrorType {
-    EMPTY("NotEmpty"),
-    NULL("NotNull"),
-    NOT_UNIQUE_MAIL("UniqueMail"),
-    NOT_MATCH("FieldMatch"),
-    UNKNOWN("");
+    EMPTY(List.of("NotEmpty", "NotNull", "NotBlank")),
+    NOT_UNIQUE(List.of("UniqueMail")),
+    NOT_MATCH(List.of("FieldMatch")),
+    UNKNOWN(List.of());
 
-    private final String codeName;
+    private final List<String> codeNames;
 
-    ErrorType(String codeName) {
-        this.codeName = codeName;
+    ErrorType(List<String > codeNames) {
+        this.codeNames = codeNames;
     }
 
     public static ErrorType valueOfCode(String codeName) {
+
         return Arrays.stream(ErrorType.values())
-                .filter(errorType -> codeName.equals(errorType.codeName))
+                .filter(errorType -> errorType.codeNames.contains(codeName))
                 .findFirst()
                 .orElse(UNKNOWN);
     }
