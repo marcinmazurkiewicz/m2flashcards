@@ -8,6 +8,8 @@ public enum ErrorType {
     EMPTY(List.of("NotEmpty", "NotNull", "NotBlank")),
     NOT_UNIQUE(List.of("UniqueMail")),
     NOT_MATCH(List.of("FieldMatch")),
+    MAX(List.of("DecimalMax", "Max")),
+    MIN(List.of("DecimalMin", "Min")),
     UNKNOWN(List.of());
 
     private final List<String> codeNames;
