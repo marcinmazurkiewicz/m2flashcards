@@ -5,11 +5,12 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public enum ErrorType {
+    ABOVE_MAX(List.of("DecimalMax", "Max")),
     EMPTY(List.of("NotEmpty", "NotNull", "NotBlank")),
-    NOT_UNIQUE(List.of("UniqueMail")),
+    NOT_MAIL(List.of("Email")),
     NOT_MATCH(List.of("FieldMatch")),
-    MAX(List.of("DecimalMax", "Max")),
-    MIN(List.of("DecimalMin", "Min")),
+    NOT_UNIQUE(List.of("UniqueMail")),
+    UNDER_MIN(List.of("DecimalMin", "Min")),
     UNKNOWN(List.of());
 
     private final List<String> codeNames;
