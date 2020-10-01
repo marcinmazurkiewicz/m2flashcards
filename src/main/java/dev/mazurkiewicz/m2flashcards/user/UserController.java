@@ -9,7 +9,6 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/api/v1/users")
-@CrossOrigin(origins="http://localhost:8081")
 public class UserController {
 
     private final UserService userService;
