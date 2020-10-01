@@ -2,7 +2,6 @@ package dev.mazurkiewicz.m2flashcards.user;
 
 import dev.mazurkiewicz.m2flashcards.auth.Authority;
 import dev.mazurkiewicz.m2flashcards.auth.AuthorityService;
-import dev.mazurkiewicz.m2flashcards.exception.UniqueValueViolationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -38,9 +37,6 @@ public class UserService implements UserDetailsService {
                 .collect(Collectors.toSet());
         toRegister.setAuthorities(authorities);
 
-        if(userRepository.selectUserByUsername(toRegister.getEmail()).isPresent())
-            throw new UniqueValueViolationException("Email already in use", "email",
-                    String.format("Acount with email %s is already in database", toRegister.getEmail()));
         User registeredUser = userRepository.save(toRegister);
         return userMapper.mapEntityToResponse(registeredUser);
     }
