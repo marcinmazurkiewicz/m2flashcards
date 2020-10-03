@@ -6,6 +6,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -15,6 +16,11 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping("/me")
+    public Principal getLoggedUser(Principal principal) {
+        return principal;
     }
 
     @PostMapping
