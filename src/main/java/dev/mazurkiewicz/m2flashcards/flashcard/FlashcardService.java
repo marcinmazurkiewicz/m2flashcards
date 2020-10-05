@@ -69,4 +69,14 @@ public class FlashcardService {
                 .map(flashcardMapper::mapEntityToResponse)
                 .collect(Collectors.toList());
     }
+
+    public void removeFlashcardById(Long id) {
+        Flashcard flashcard = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("Flashcard with id %d is not found", id)));
+        if(flashcard.getAuthorId().equals(userAuthHelper.geLoggedUserId())) {
+            repository.deleteById(id);
+        } else {
+            throw new UnauthorizedAccessException(String.format("Flashcard %d is not your!", id));
+        }
+    }
 }

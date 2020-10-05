@@ -26,6 +26,12 @@ public class FlashcardController {
         return service.findFlashcard(id);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> removeFlashcardById(@PathVariable Long id) {
+        service.removeFlashcardById(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @PatchMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<?> editFlashcard(@PathVariable Long id, @RequestBody @Valid FlashcardRequest flashcard) {
