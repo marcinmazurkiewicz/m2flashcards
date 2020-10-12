@@ -15,6 +15,7 @@ public class Deck {
     @GeneratedValue
     private Long id;
     private String name;
+    private Long authorId;
     private boolean isPrivate;
     @ManyToMany
     @JoinTable(joinColumns = {@JoinColumn(name="deck_id")},
