@@ -1,10 +1,9 @@
 package dev.mazurkiewicz.m2flashcards.flashcard;
 
+import dev.mazurkiewicz.m2flashcards.deck.Deck;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity(name="flashcards")
@@ -18,5 +17,8 @@ public class Flashcard {
     private boolean twoSided;
     private Long authorId;
     private boolean isPrivate;
+    @ManyToOne
+    @JoinColumn(name="deck_id")
+    private Deck deck;
 
 }
