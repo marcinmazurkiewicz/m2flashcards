@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -20,8 +21,8 @@ public class DeckController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addDeck(@RequestBody Deck deck) {
-        Deck savedDeck = service.saveDeck(deck);
+    public ResponseEntity<?> addDeck(@RequestBody @Valid DeckRequest deck) {
+        DeckResponse savedDeck = service.saveDeck(deck);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(savedDeck.getId()).toUri();
         return ResponseEntity.created(location).build();
