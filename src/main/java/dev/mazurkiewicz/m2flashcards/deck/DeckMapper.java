@@ -12,4 +12,15 @@ public class DeckMapper {
         result.setPrivate(request.isPrivate());
         return result;
     }
+
+    public DeckResponse mapEntityToResponse(Deck entity) {
+        DeckResponse result = new DeckResponse();
+        result.setId(entity.getId());
+        result.setAuthorId(entity.getAuthorId());
+        result.setName(entity.getName());
+        result.setPrivate(entity.isPrivate());
+        result.setTags(entity.getTags());
+        result.setFlashcards(entity.getFlashcards());
+        return result;
+    }
 }
