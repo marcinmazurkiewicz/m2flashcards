@@ -6,6 +6,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/decks")
@@ -20,6 +21,11 @@ public class DeckController {
     @GetMapping(path = "/{id}")
     public DeckResponse getDeckById(@PathVariable Long id) {
         return service.getDeckById(id);
+    }
+
+    @GetMapping(path = "/author/{authorId}")
+    public List<DeckResponse> getDecksByAuthor(@PathVariable Long authorId) {
+        return service.getDecksByAuthor(authorId);
     }
 
     @PostMapping

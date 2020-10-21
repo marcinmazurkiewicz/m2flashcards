@@ -5,6 +5,9 @@ import dev.mazurkiewicz.m2flashcards.exception.ResourceNotFoundException;
 import dev.mazurkiewicz.m2flashcards.tag.TagConverter;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class DeckService {
 
@@ -35,5 +38,19 @@ public class DeckService {
         DeckResponse deckResponse = mapper.mapEntityToResponse(deck);
         deckResponse.setTags(tagConverter.mapToResponse(deck.getTags()));
         return deckResponse;
+    }
+
+    public List<DeckResponse> getDecksByAuthor(Long authorId) {
+        List<Deck> foundDecks = repository.findByAuthorId(authorId);
+        boolean isAuthorLogged = authorId.equals(userAuthHelper.geLoggedUserId());
+        return isAuthorLogged
+                ? foundDecks.stream()
+                .map(mapper::mapEntityToResponse)
+                .collect(Collectors.toList())
+                : foundDecks.stream()
+                .filter(deck -> !deck.isPrivate())
+                .map(mapper::mapEntityToResponse)
+                .collect(Collectors.toList());
+
     }
 }
