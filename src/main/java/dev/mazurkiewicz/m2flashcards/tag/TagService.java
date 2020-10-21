@@ -7,7 +7,6 @@ public class TagService {
 
     private final ITagRepository repository;
 
-
     public TagService(ITagRepository repository) {
         this.repository = repository;
     }
