@@ -16,7 +16,14 @@ public class Tag {
     @Id
     @GeneratedValue
     private Long id;
-    private String tag;
+    private String tagName;
     @ManyToMany(mappedBy = "tags")
     private List<Deck> decks;
+
+    public Tag() {
+    }
+
+    public Tag(String tagName) {
+        this.tagName = tagName;
+    }
 }

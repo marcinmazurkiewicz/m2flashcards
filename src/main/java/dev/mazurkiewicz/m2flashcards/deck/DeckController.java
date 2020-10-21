@@ -21,7 +21,7 @@ public class DeckController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addDeck(@RequestBody @Valid DeckRequest deck) {
+    public ResponseEntity<?> createDeck(@RequestBody @Valid DeckRequest deck) {
         DeckResponse savedDeck = service.saveDeck(deck);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(savedDeck.getId()).toUri();
