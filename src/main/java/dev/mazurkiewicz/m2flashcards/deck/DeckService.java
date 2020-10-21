@@ -1,6 +1,7 @@
 package dev.mazurkiewicz.m2flashcards.deck;
 
 import dev.mazurkiewicz.m2flashcards.auth.UserAuthHelper;
+import dev.mazurkiewicz.m2flashcards.exception.ResourceNotFoundException;
 import dev.mazurkiewicz.m2flashcards.tag.TagConverter;
 import org.springframework.stereotype.Service;
 
@@ -28,4 +29,11 @@ public class DeckService {
     }
 
 
+    public DeckResponse getDeckById(Long id) {
+        Deck deck = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("Deck with id %d is not found", id)));
+        DeckResponse deckResponse = mapper.mapEntityToResponse(deck);
+        deckResponse.setTags(tagConverter.mapToResponse(deck.getTags()));
+        return deckResponse;
+    }
 }

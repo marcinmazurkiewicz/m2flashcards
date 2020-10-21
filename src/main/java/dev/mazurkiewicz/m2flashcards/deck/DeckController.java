@@ -1,10 +1,7 @@
 package dev.mazurkiewicz.m2flashcards.deck;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -18,6 +15,11 @@ public class DeckController {
 
     public DeckController(DeckService service) {
         this.service = service;
+    }
+
+    @GetMapping(path = "/{id}")
+    public DeckResponse getDeckById(@PathVariable Long id) {
+        return service.getDeckById(id);
     }
 
     @PostMapping

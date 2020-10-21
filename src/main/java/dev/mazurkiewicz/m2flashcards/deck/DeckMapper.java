@@ -19,7 +19,6 @@ public class DeckMapper {
         result.setAuthorId(entity.getAuthorId());
         result.setName(entity.getName());
         result.setPrivate(entity.isPrivate());
-        result.setTags(entity.getTags());
         result.setFlashcards(entity.getFlashcards());
         return result;
     }

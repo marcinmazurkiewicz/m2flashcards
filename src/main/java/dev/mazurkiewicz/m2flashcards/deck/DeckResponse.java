@@ -1,7 +1,7 @@
 package dev.mazurkiewicz.m2flashcards.deck;
 
 import dev.mazurkiewicz.m2flashcards.flashcard.Flashcard;
-import dev.mazurkiewicz.m2flashcards.tag.Tag;
+import dev.mazurkiewicz.m2flashcards.tag.TagResponse;
 import lombok.Data;
 
 import java.util.List;
@@ -13,6 +13,6 @@ public class DeckResponse {
     private String name;
     private Long authorId;
     private boolean isPrivate;
-    private List<Tag> tags;
+    private List<TagResponse> tags;
     private List<Flashcard> flashcards;
 }
